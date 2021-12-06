@@ -326,7 +326,7 @@ const transferDevl = (amount, receiver) => {
                     </div>
                 </div>
 
-                {/* GATEWAY TRANSFER */}
+                {/* GATEWAY TRANSFER
                 <div class="row row-30 justify-content-center" style={{ textAlign: 'center' }}>
                   <div class="col-4 justify-content-center">
                     <div class="h4" style={{ textAlign: 'center' }}>
@@ -365,7 +365,7 @@ const transferDevl = (amount, receiver) => {
                         </button>
                     </form>
                   </div>         
-                </div>
+                </div> */}
 
                 <div class="row row-30 justify-content-center">   
                 
