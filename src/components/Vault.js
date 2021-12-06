@@ -189,6 +189,7 @@ const Vault = (props) => {
                     <div class="col-4">
                         <div>
                             Status: <b>{updateState ? 'loading' : 'complete'}</b>
+                            <p>Vault v2 - currently on testnet ONLY</p>
                         </div>
                     </div>
                   </div>
