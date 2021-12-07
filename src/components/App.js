@@ -388,6 +388,9 @@ function App() {
                           <p style={{ textAlign: 'center' }}>
                              Note: Price information coming after launch when connection available.
                           </p>
+                          <p style={{ textAlign: 'center' }}>
+                             Last Update: 12/06/21
+                          </p>
                         </div>
                       </div>
                     </div>
