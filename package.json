@@ -37,6 +37,7 @@
     "react-async": "^10.0.1",
     "react-bootstrap": "^1.6.3",
     "react-countdown": "^2.3.2",
+    "react-device-detect": "^2.1.2",
     "react-dom": "16.8.4",
     "react-particles-js": "^3.5.3",
     "react-redux": "^7.2.5",
