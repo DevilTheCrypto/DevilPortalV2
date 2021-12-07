@@ -4,6 +4,7 @@ import Timer from './Timer';
 import DevilLockAbi from "../remix_abis/DevilLock.json";
 import TetherAbi from "../remix_abis/Tether.json";
 import DevilTokenAbi from "../remix_abis/DevilToken.json";
+import { provider, walletconnect } from '../connectors/index';
 
 const Governance = (props) => {
 
@@ -24,6 +25,7 @@ const Governance = (props) => {
     const [devilVaultAddress, setDevilVaultAddress] = React.useState("");
     const [devilTokenBalance, setDevilTokenBalance] = React.useState("0");
     const [updateState, setUpdateState] = React.useState(false);
+    const [web3Enabled, setWeb3Enabled] = React.useState(false);
 
     //Devil Lock loading
     const [devilLock, setDevilLock] = React.useState([undefined]);
@@ -43,46 +45,51 @@ const Governance = (props) => {
     const inputRef = useRef()
     let account = props.account
   
+   // window.web3 = new Web3(window.web3.currentProvider);
+   useEffect(() => {
+    if (account !== undefined){
+        setWeb3Enabled(true);
+      window.web3 = new Web3(window.web3 ? window.web3.currentProvider : walletconnect.walletConnectProvider);
+    }
+    else setWeb3Enabled(false);;
+  }, [account]);
+  
     useEffect(() => {
       
       const init = async () => {
-
-        window.web3 = await new Web3(window.ethereum);
-        const web3 = await window.web3;
-        if(account !== undefined) {
+  
+        const web3 = window.web3;
+        if (web3Enabled) {
             const networkId = await web3.eth.net.getId();
             setNetworkId(networkId);
-        }
-  
-        try{
-        //LOAD Devil lock
-        const devilLockAddress = "0xd39217757AfAFd226AeDCA1Bd20F34A97ECbeb50";
-        setDevilLockAddress(devilLockAddress);
-        const devilLock = new web3.eth.Contract(
-          DevilLockAbi,
-          devilLockAddress
-        );
-        setDevilLock(devilLock);
-        console.log(devilLock);
-        } catch (error) {
-          alert(
-            'Failed to load Devil Lock.',
-                );
-        }
+    
+            try{
+            //LOAD Devil lock
+            const devilLockAddress = "0xd39217757AfAFd226AeDCA1Bd20F34A97ECbeb50";
+            setDevilLockAddress(devilLockAddress);
+            const devilLock = new web3.eth.Contract(
+            DevilLockAbi,
+            devilLockAddress
+            );
+            setDevilLock(devilLock);
+            } catch (error) {
+            alert(
+                'Failed to load Devil Lock.',
+                    );
+            }
 
-        //LOAD devilToken
-        const devilTokenAddress = "0xD280e0Fea29BcAe6ED9DD9fb4B9e5Fa90F5C249D";
-        setDevilTokenAddress(devilTokenAddress);
-        const devilToken = new web3.eth.Contract(
-          DevilTokenAbi,
-          devilTokenAddress
-        );
-        setDevilToken(devilToken);
-        console.log(devilToken);
+            //LOAD devilToken
+            const devilTokenAddress = "0xD280e0Fea29BcAe6ED9DD9fb4B9e5Fa90F5C249D";
+            setDevilTokenAddress(devilTokenAddress);
+            const devilToken = new web3.eth.Contract(
+            DevilTokenAbi,
+            devilTokenAddress
+            );
+            setDevilToken(devilToken);
+            console.log(devilToken);
     
         //Load our staking state and other account data
-  
-          if (account !== undefined){
+          
             let votingActive = await devilLock.methods.getVotingActive().call()
             setVotingActive(votingActive)
 
@@ -143,7 +150,7 @@ const Governance = (props) => {
           } 
       }
       init();
-    }, [account]);
+    }, [web3Enabled]);
     
     async function update() {
     
@@ -275,7 +282,7 @@ const Governance = (props) => {
                         <div class="row row-30 justify-content-center">
                             <div class="col-4 justify-content-center">
                                 <form class="block block-sm justify-content-center" data-np-checked="1">
-                                    <p>Balance: {window.web3.utils.fromWei(devilTokenBalance, 'Ether')} </p>
+                                    <p>Balance: {web3Enabled ? window.web3.utils.fromWei(devilTokenBalance, 'Ether') : 0} </p>
                                     {/* <AmountForm /> */}
                                     {/* <input type="number" ref={inputRef} className="form-control"/> */}
                                         
