@@ -1,7 +1,7 @@
 {
   "main.css": "/DevilPortalV2/static/css/main.fe3d3203.chunk.css",
-  "main.js": "/DevilPortalV2/static/js/main.e5229ce7.chunk.js",
-  "main.js.map": "/DevilPortalV2/static/js/main.e5229ce7.chunk.js.map",
+  "main.js": "/DevilPortalV2/static/js/main.28c4a062.chunk.js",
+  "main.js.map": "/DevilPortalV2/static/js/main.28c4a062.chunk.js.map",
   "static/js/1.aac1cac4.chunk.js": "/DevilPortalV2/static/js/1.aac1cac4.chunk.js",
   "static/js/1.aac1cac4.chunk.js.map": "/DevilPortalV2/static/js/1.aac1cac4.chunk.js.map",
   "static/css/2.a8df77c7.chunk.css": "/DevilPortalV2/static/css/2.a8df77c7.chunk.css",
@@ -14,6 +14,6 @@
   "static/css/main.fe3d3203.chunk.css.map": "/DevilPortalV2/static/css/main.fe3d3203.chunk.css.map",
   "static/css/2.a8df77c7.chunk.css.map": "/DevilPortalV2/static/css/2.a8df77c7.chunk.css.map",
   "index.html": "/DevilPortalV2/index.html",
-  "precache-manifest.6daef7829778e85980299325e113f8a3.js": "/DevilPortalV2/precache-manifest.6daef7829778e85980299325e113f8a3.js",
+  "precache-manifest.13a42769f303e3988ccf7cd38fd71619.js": "/DevilPortalV2/precache-manifest.13a42769f303e3988ccf7cd38fd71619.js",
   "service-worker.js": "/DevilPortalV2/service-worker.js"
 }
