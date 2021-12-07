@@ -17,6 +17,7 @@ const Gateway = (props) => {
 
   const [networkId, setNetworkId] = React.useState(undefined);
   const [devilTokenAddress, setDevilTokenAddress] = React.useState("");
+  const [devilToken, setDevilToken] = React.useState([undefined]);
   const [rwd, setRwd] = React.useState(undefined);
   const [rwdAddress, setRwdAddress] = React.useState("");
   const [rewardTokenAddress, setRewardTokenAddress] = React.useState("");
@@ -40,7 +41,6 @@ const Gateway = (props) => {
   const APIKEY = 'pk_prod_H2r9uOFoPvXZRouc0brXKBhL8jEYJKtivAgsAbLxUL40';
 
   let account = props.account
-  let devilToken = props.devilToken;
 
   // window.web3 = new Web3(window.web3.currentProvider);
   useEffect(() => {
@@ -69,6 +69,16 @@ const Gateway = (props) => {
           );
           setDevilGateway(devilGateway);
           console.log(devilGateway);
+
+          //Load Devil Token
+          const devilTokenAddress = "0xD280e0Fea29BcAe6ED9DD9fb4B9e5Fa90F5C249D";
+          setDevilTokenAddress(devilTokenAddress);
+          const devilToken = new web3.eth.Contract(
+            DevilTokenAbi,
+            devilTokenAddress
+          );
+          setDevilToken(devilToken);
+          console.log(devilToken);
 
           //Load price through axois query
           axios.get('https://api.coingecko.com/api/v3/coins/binance-smart-chain/contract/0xD280e0Fea29BcAe6ED9DD9fb4B9e5Fa90F5C249D')
