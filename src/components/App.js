@@ -320,6 +320,7 @@ function App() {
                           account={account}
                           web3={web3}
                         /> */}
+                        <p>Devil Lock will open late December 2021</p>
                     </div>
                     </div>
                   </div>
