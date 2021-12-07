@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "b03762f542abb87b9aca",
+    "revision": "e5229ce7960f2dda3e12",
     "url": "/DevilPortalV2/static/css/main.fe3d3203.chunk.css"
   },
   {
-    "revision": "b03762f542abb87b9aca",
-    "url": "/DevilPortalV2/static/js/main.b03762f5.chunk.js"
+    "revision": "e5229ce7960f2dda3e12",
+    "url": "/DevilPortalV2/static/js/main.e5229ce7.chunk.js"
   },
   {
     "revision": "aac1cac424808be23d17",
@@ -28,7 +28,7 @@ self.__precacheManifest = [
     "url": "/DevilPortalV2/static/js/runtime~main.8ede6965.js"
   },
   {
-    "revision": "9267ea8041951c27045a8d0af00e2bb3",
+    "revision": "61c261f3c9179f27ad74872dd9d1716b",
     "url": "/DevilPortalV2/index.html"
   }
 ];

@@ -163,6 +163,7 @@ function App() {
                           account={account}
                           web3={web3}
                         /> */}
+                        <p>Devil Lock will open late December 2021</p>
                     </div>
                     </div>
                   </div>
@@ -330,7 +331,7 @@ function App() {
                               DEVIL'S VAULT   
                           </div>
                           <p style={{ textAlign: 'center' }}>
-                             <b>Version 1</b>
+                             <b>Version 2</b>
                           </p>
                           <p style={{ textAlign: 'center' }}>
                              Deposit your DEVL in order to earn your share of the 3% tax in the form of BUSD.
