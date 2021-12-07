@@ -293,17 +293,6 @@ return (
                           }}
                           className='btn btn-primary btn-lg btn-block'>CLAIM
                       </button>
-                      
-                      <button 
-                          type='submit'
-                          onClick={(event) => {
-                          event.preventDefault()
-                          let amount
-                          amount = inputValue
-                          approve(amount)
-                          }}
-                          className='btn btn-primary btn-lg btn-block'>approve
-                      </button> 
                                                   
               </form>
           </div>
