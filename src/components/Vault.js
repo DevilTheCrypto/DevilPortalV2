@@ -59,7 +59,7 @@ const Vault = (props) => {
           setNetworkId(networkId);
 
           //LOAD devil vault
-          const devilVaultAddress = "0xe12f2f9Bf3939BCe8F41CAd1247924a0B2dda942";
+          const devilVaultAddress = "0xd5B3b83D7807DCDb1204327c61f679E7773A9d62";
           setDevilVaultAddress(devilVaultAddress);
           const devilVault = new web3.eth.Contract(
             DevilVaultAbi,
@@ -69,7 +69,7 @@ const Vault = (props) => {
           console.log(devilVault);
 
           //Load Devil Token
-          const devilTokenAddress = "0x65aEd7F90a0cF876D496d8093D3F89748ba66b57";
+          const devilTokenAddress = "0xD280e0Fea29BcAe6ED9DD9fb4B9e5Fa90F5C249D";
           setDevilTokenAddress(devilTokenAddress);
           const devilToken = new web3.eth.Contract(
             DevilTokenAbi,
@@ -133,7 +133,7 @@ const Vault = (props) => {
       const web3 = window.web3;
       
       //LOAD devil vault
-      const devilVaultAddress = "0xe12f2f9Bf3939BCe8F41CAd1247924a0B2dda942";
+      const devilVaultAddress = "0xd5B3b83D7807DCDb1204327c61f679E7773A9d62";
       setDevilVaultAddress(devilVaultAddress);
       const devilVault = new web3.eth.Contract(
         DevilVaultAbi,
@@ -143,7 +143,7 @@ const Vault = (props) => {
       console.log(devilVault);
 
       //Load Devil Token
-      const devilTokenAddress = "0x65aEd7F90a0cF876D496d8093D3F89748ba66b57";
+      const devilTokenAddress = "0xD280e0Fea29BcAe6ED9DD9fb4B9e5Fa90F5C249D";
       setDevilTokenAddress(devilTokenAddress);
       const devilToken = new web3.eth.Contract(
         DevilTokenAbi,
@@ -214,7 +214,6 @@ return (
           <div class="col-4">
               <div>
                   Status: <b>{updateState ? 'loading' : 'complete'}</b>
-                  <p>Vault v2 - currently on testnet ONLY</p>
               </div>
           </div>
         </div>
