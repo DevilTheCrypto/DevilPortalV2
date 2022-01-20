@@ -7,6 +7,7 @@ import RwdAbi from "../remix_abis/RWD.json";
 import DevilTokenAbi from "../remix_abis/DevilToken.json";
 import { provider, walletconnect } from "../connectors/index";
 import { isBrowser } from "react-device-detect";
+import axios from 'axios';
 
 const Vault = (props) => {
 
@@ -35,6 +36,9 @@ const Vault = (props) => {
   const [pendingUserRewardsBusd, setPendingUserRewardsBusd] = React.useState("0");
   const [pendingUserRewardsDevl, setPendingUserRewardsDevl] = React.useState("0");
   const [inputValue, setInputValue] = React.useState(0);
+  const [data, setData] = React.useState([]);
+  const [price, setPrice] = React.useState("");
+  const [userPoolShare, setUserPoolShare] = React.useState("");
 
   let account = props.account
 
@@ -77,6 +81,14 @@ const Vault = (props) => {
           );
           setDevilToken(devilToken);
           console.log(devilToken);
+
+          //Load price through axois query
+          axios.get('https://api.coingecko.com/api/v3/coins/binance-smart-chain/contract/0xD280e0Fea29BcAe6ED9DD9fb4B9e5Fa90F5C249D')
+          .then(res => {
+          setData(res.data);
+          console.log(res.data);
+          setPrice(res.data.market_data.current_price.usd);
+          })
         
             //Load our staking state and other account data
     
@@ -94,6 +106,9 @@ const Vault = (props) => {
     
             let pendingUserRewardsDevl = await devilVault.methods.earnedDevl(account).call();
             setPendingUserRewardsDevl(pendingUserRewardsDevl.toString());
+
+            let userPoolShare = amountStaked/globalStakingBalance;
+            setUserPoolShare(userPoolShare);
             
         
           //event subscriptions that call update function to sync state variables w/ block chain
@@ -151,6 +166,14 @@ const Vault = (props) => {
       );
       setDevilToken(devilToken);
       console.log(devilToken);
+
+      //Load price through axois query
+      axios.get('https://api.coingecko.com/api/v3/coins/binance-smart-chain/contract/0xD280e0Fea29BcAe6ED9DD9fb4B9e5Fa90F5C249D')
+      .then(res => {
+      setData(res.data);
+      console.log(res.data);
+      setPrice(res.data.market_data.current_price.usd);
+      })
     
       let devilTokenBalance = await devilToken.methods.balanceOf(account).call();
       setDevilTokenBalance(devilTokenBalance.toString());
@@ -216,13 +239,47 @@ return (
                   Status: <b>{updateState ? 'loading' : 'complete'}</b>
               </div>
           </div>
-        </div>
+          <div class="col-4 justify-content-center">
+            <p style={{ textAlign: 'center' }}>You currently have {userPoolShare*100}% of the pool.</p>
+          </div>
+          <div class="col-4 justify-content-center">
+          </div>
+      </div>
+      {/* <div class="row-no-gutters justify-content-left">
+          <div class="col-12 justify-content-center">
+            <div class="h2" style={{ textAlign: 'center' }}>
+              DEVIL'S VAULT  
+            </div>
+          </div>
+      </div>
+      <div class="row-no-gutters justify-content-left">
+          <div class="col-12 justify-content-center">
+            <div class="p" style={{ textAlign: 'center' }}>
+              Rewards Period: Active  
+            </div>
+          </div>
+      </div>
+      <div class="row-no-gutters justify-content-left">
+          <div class="col-12 justify-content-center">
+            <div class="p" style={{ textAlign: 'center' }}>
+              130 Minutes Remaining  
+            </div>
+          </div>
+      </div>
+      <div class="row-no-gutters justify-content-left">
+          <div class="col-12 justify-content-center">
+            <div class="p" style={{ textAlign: 'center' }}>
+              130 Minutes Remaining  
+            </div>
+          </div>
+      </div> */}
       <div class="row row-30 justify-content-center">
           <div class="col-4">
               <div class="h3">
                   TOTAL STAKED   
               </div>
-                  <p> {web3Enabled ? globalStakingBalance/1e18 : 0 } DEVL </p>
+                  <p> {web3Enabled ? (globalStakingBalance/1e18).toLocaleString("en-US") : 0 } DEVL </p>
+                  <p> ${web3Enabled ? parseFloat(globalStakingBalance/1e18*price).toLocaleString("en-US") : 0 } USD</p>
           </div>
           <div class="col-4 justify-content-center">
               <img class="mt-xxl-4" src="assets/media/DEVIL_logo_red_centered.png" alt="" width="674" height="572"/>
@@ -231,15 +288,18 @@ return (
                   <div class="h3" style={{ textAlign: 'right' }}>
                     DEVL REWARDS   
                   </div>
-                      <p style={{ textAlign: 'right' }}>{web3Enabled ? pendingUserRewardsDevl/1e18 : 0 } DEVL</p>
+                      <p style={{ textAlign: 'right' }}>{web3Enabled ? (pendingUserRewardsDevl/1e18).toLocaleString("en-US") : 0 } DEVL</p>
+                      <p style={{ textAlign: 'right' }}> ${web3Enabled ? parseFloat(pendingUserRewardsDevl/1e18*price).toFixed(2) : 0 } USD</p>
               </div>
       </div>
+      
       <div class="row row-30 justify-content-center">
           <div class="col-4">
               <div class="h3">
                   USER STAKED   
               </div>
                   <p> {web3Enabled ? amountStaked/1e18 : 0 } DEVL </p>
+                  <p> ${web3Enabled ? parseFloat(amountStaked/1e18*price).toLocaleString("en-US") : 0 } USD</p>
           </div>
           <div class="col-4 justify-content-center">
               <form class="block block-sm" data-np-checked="1">
@@ -299,7 +359,7 @@ return (
                   <div class="h3" style={{ textAlign: 'right' }}>
                       BUSD REWARDS   
                   </div>
-                      <p style={{ textAlign: 'right' }}> {web3Enabled ? pendingUserRewardsBusd/1e18 : 0 } BUSD </p>
+                      <p style={{ textAlign: 'right' }}> {web3Enabled ? parseFloat(pendingUserRewardsBusd/1e18).toFixed(4) : 0 } BUSD </p>
               </div>
       </div>
       {/* <div class="row row-30 justify-content-left">
@@ -354,6 +414,7 @@ return (
 
         <div class="row row-30 justify-content-center">
           <p>Status: <b>{updateState ? 'loading' : 'complete'}</b></p>
+          <p style={{ textAlign: 'center' }}>You currently have {userPoolShare*100}% of the pool.</p>
         </div>
 
         <div class="row row-30 justify-content-center">
@@ -370,7 +431,8 @@ return (
           </div>
         </div>
         <div class="row-no-gutters justify-content-center" style={{ textAlign: 'center' }}>
-          <p> {web3Enabled ? globalStakingBalance/1e18 : 0 } DEVL </p>
+            <p> {web3Enabled ? (globalStakingBalance/1e18).toLocaleString("en-US") : 0 } DEVL </p>
+            <p> ${web3Enabled ? parseFloat(globalStakingBalance/1e18*price).toLocaleString("en-US") : 0 } USD</p>
         </div>
 
         <div class="row row-30 justify-content-center">
@@ -384,7 +446,9 @@ return (
         </div>
         <div class="row-no-gutters justify-content-center" style={{ textAlign: 'center' }}>
           <p> {web3Enabled ? amountStaked/1e18 : 0 } DEVL </p>
+          <p> ${web3Enabled ? parseFloat(amountStaked/1e18*price).toLocaleString("en-US") : 0 } USD</p>
         </div>
+        
 
         <div class="row row-30 justify-content-center">
           {/* spacer */}
@@ -396,7 +460,8 @@ return (
           </div>
         </div>
         <div class="row-no-gutters justify-content-center" style={{ textAlign: 'center' }}>
-          <p>{web3Enabled ? pendingUserRewardsDevl/1e18 : 0 } DEVL</p>
+          <p>{web3Enabled ? (pendingUserRewardsDevl/1e18).toLocaleString("en-US") : 0 } DEVL</p>
+          <p> ${web3Enabled ? parseFloat(pendingUserRewardsDevl/1e18*price).toFixed(2) : 0 } USD</p>
         </div>
 
         <div class="row row-30 justify-content-center">
@@ -409,7 +474,7 @@ return (
           </div>
         </div>
         <div class="row-no-gutters justify-content-center" style={{ textAlign: 'center' }}>
-          <p> {web3Enabled ? pendingUserRewardsBusd/1e18 : 0 } BUSD </p>
+          <p> {web3Enabled ? parseFloat(pendingUserRewardsBusd/1e18).toFixed(4) : 0 } BUSD </p>
         </div>
 
         <div class="row row-30 justify-content-center">
